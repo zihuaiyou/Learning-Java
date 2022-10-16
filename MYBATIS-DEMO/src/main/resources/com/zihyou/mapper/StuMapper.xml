@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="stu">
+<mapper namespace="com.zihyou.mapper.StuMapper">
     <select id="selectStuInfo" resultType="com.zihyou.pojo.StuInfo">
         select * from stu_info
     </select>

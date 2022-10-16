@@ -14,8 +14,10 @@
             </dataSource>
         </environment>
     </environments>
-<!--    加载mapper配置文件-->
     <mappers>
-        <mapper resource="stuMapper.xml"/>
+        <!--    加载mapper配置文件-->
+        <!--        <mapper resource="com/zihyou/mapper/StuMapper.xml"/>-->
+        <!--        包扫描方式导入mapper接口与配置-->
+        <package name="com/zihyou/mapper"/>
     </mappers>
 </configuration>
