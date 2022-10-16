@@ -1,9 +1,6 @@
 package com.zihyou.jdbc;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class JDBCDEMO_PrepareStatement {
     public static void main(String[] args) throws Exception {
@@ -17,15 +14,18 @@ public class JDBCDEMO_PrepareStatement {
         Connection conn = DriverManager.getConnection(url, username, password);
 
         //3.定义sql;
-        String name = "张三ddd";
-        String pwd = "' or '1' = '1"; //sql注入问题
-        String sql = "select * from login where name = '" + name + "'and pwd ='" + pwd + "'";
+        String name = "张三";
+//        String pwd = "' or '1' = '1"; //sql注入问题
+        String pwd = "1234";
+        String sql = "select * from login where name = ?and pwd =?";
 
         //4.获取执行sql的statement
-        Statement stmt = conn.createStatement();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
 
         //5.执行sql
-        ResultSet rs = stmt.executeQuery(sql);
+        pstmt.setString(1,name);
+        pstmt.setString(2,pwd);
+        ResultSet rs = pstmt.executeQuery();
 
         //6.处理结果
         if (rs.next()) {
@@ -35,7 +35,7 @@ public class JDBCDEMO_PrepareStatement {
         }
 
         //7.释放资源
-        stmt.close();
+        pstmt.close();
         conn.close();
     }
 }
