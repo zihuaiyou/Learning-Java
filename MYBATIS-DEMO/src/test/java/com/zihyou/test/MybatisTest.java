@@ -91,9 +91,9 @@ public class MybatisTest {
 
         //Map集合
         Map articleMap = new HashMap();
-        articleMap.put("status",status);
-        articleMap.put("title",title);
-        articleMap.put("flag",flag);
+//        articleMap.put("status",status);
+//        articleMap.put("title",title);
+//        articleMap.put("flag",flag);
         List<Article> articleList  = articleMapper.selectArticleByCondition(articleMap);
         System.out.println(articleList);
         //释放资源

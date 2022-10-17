@@ -15,11 +15,48 @@
         where id = #{id}
     </select>
 
+    <!--    <select id="selectArticleByCondition" resultType="Article">-->
+    <!--        select *-->
+    <!--        from article-->
+    <!--        where status = #{status}-->
+    <!--          and title like #{title}-->
+    <!--          and flag like #{flag}-->
+    <!--    </select>-->
+
+    <!--    动态sql-->
+<!--    <select id="selectArticleByCondition" resultType="Article">-->
+<!--        select *-->
+<!--        from article-->
+<!--        <where>-->
+<!--            <if test="status!= null">-->
+<!--                status = #{status}-->
+<!--            </if>-->
+<!--            <if test="title!=null and title!='' ">-->
+<!--                and title like #{title}-->
+<!--            </if>-->
+<!--            <if test="flag!=null and flag!='' ">-->
+<!--                and flag like #{flag}-->
+<!--            </if>-->
+
+<!--        </where>-->
+<!--    </select>-->
+
+<!--    choose相当于switch,when相当于case-->
     <select id="selectArticleByCondition" resultType="Article">
         select *
         from article
-        where status = #{status}
-          and title like #{title}
-          and flag like #{flag}
+        <where>
+            <choose>
+                <when test="status!= null">
+                    status = #{status}
+                </when>
+                <when test="title!=null and title!='' ">
+                    and title like #{title}
+                </when>
+                <when test="flag!=null and flag!='' ">
+                    and flag like #{flag}
+                </when>
+            </choose>
+        </where>
     </select>
 </mapper>
