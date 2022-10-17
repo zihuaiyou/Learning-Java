@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zihyou.mapper.ArticleMapper">
+    <!--   #{} 表示占位符，用于替换 ？  一般传参使用-->
+    <!--   ${} 拼sql会存在sql注入问题 一般动态替换使用-->
+    <!--    特殊字符处理
+        转义字符
+        CDATA区
+    -->
+    <select id="selectArticleById" resultType="Article">
+        select *
+        from article
+        where id = #{id}
+    </select>
+
+    <select id="selectArticleByCondition" resultType="Article">
+        select *
+        from article
+        where status = #{status}
+          and title like #{title}
+          and flag like #{flag}
+    </select>
+</mapper>
