@@ -3,6 +3,57 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zihyou.mapper.ArticleMapper">
+    <!-- useGeneratedKeys 使用生成的id  keyProperty实体类的属性  -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        insert into article(title, status, flag)
+        values (#{title}, #{status}, #{flag})
+    </insert>
+    <update id="update">
+        update article
+        set flag   = #{flag},
+            status = #{status},
+            title  = #{title}
+        where id = #{id};
+    </update>
+    <update id="updateDynamic">
+        update article
+        <set>
+            <if test="flag!=null and flag!='' ">
+                flag = #{flag},
+            </if>
+            <if test="status!=null and status!='' ">
+                status = #{status},
+            </if>
+            <if test="title!=null and title!='' ">
+                title = #{title},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updates">
+        update article
+        set flag = #{flag},
+            status = #{status}
+        where id = #{id};
+    </update>
+    <delete id="Delete">
+        delete
+        from article
+        where id = #{id};
+    </delete>
+
+    <!--批量删除功能    -->
+    <!-- collection 默认为 array ,可使用@params注解替换
+      -->
+    <delete id="Deletes">
+        delete
+        from article
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </delete>
     <!--   #{} 表示占位符，用于替换 ？  一般传参使用-->
     <!--   ${} 拼sql会存在sql注入问题 一般动态替换使用-->
     <!--    特殊字符处理
@@ -24,24 +75,24 @@
     <!--    </select>-->
 
     <!--    动态sql-->
-<!--    <select id="selectArticleByCondition" resultType="Article">-->
-<!--        select *-->
-<!--        from article-->
-<!--        <where>-->
-<!--            <if test="status!= null">-->
-<!--                status = #{status}-->
-<!--            </if>-->
-<!--            <if test="title!=null and title!='' ">-->
-<!--                and title like #{title}-->
-<!--            </if>-->
-<!--            <if test="flag!=null and flag!='' ">-->
-<!--                and flag like #{flag}-->
-<!--            </if>-->
+    <!--    <select id="selectArticleByCondition" resultType="Article">-->
+    <!--        select *-->
+    <!--        from article-->
+    <!--        <where>-->
+    <!--            <if test="status!= null">-->
+    <!--                status = #{status}-->
+    <!--            </if>-->
+    <!--            <if test="title!=null and title!='' ">-->
+    <!--                and title like #{title}-->
+    <!--            </if>-->
+    <!--            <if test="flag!=null and flag!='' ">-->
+    <!--                and flag like #{flag}-->
+    <!--            </if>-->
 
-<!--        </where>-->
-<!--    </select>-->
+    <!--        </where>-->
+    <!--    </select>-->
 
-<!--    choose相当于switch,when相当于case-->
+    <!--    choose相当于switch,when相当于case-->
     <select id="selectArticleByCondition" resultType="Article">
         select *
         from article

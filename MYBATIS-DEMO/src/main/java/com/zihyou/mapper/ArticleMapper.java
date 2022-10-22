@@ -15,4 +15,14 @@ public interface ArticleMapper {
     //Map集合
      List<Article> selectArticleByCondition(Map articleMap);
 
+    int add(Article article);
+
+    int update(Article article);
+    int updates(@Param("status")int status,@Param("flag") String flag,@Param("id") int id);
+
+    int updateDynamic(Article article);
+
+    void Delete(int id);
+
+    void Deletes(@Param("ids") int[] ids);
 }

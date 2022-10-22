@@ -21,8 +21,9 @@ import java.util.Map;
 public class MybatisTest {
     int id = 4;
     int status = 1;
-    String title = "%JAVA%";
+    String title = "JavaScript";
     String flag = "%推荐%";
+    int[] ids = {14,15,16};
 
     @Test
     public void testSelectAll() throws IOException {
@@ -100,6 +101,163 @@ public class MybatisTest {
         sqlSession.close();
     }
 
+    @Test
+    public void testAdd() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
+        //获取sqlSession对象，用于执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true); //true表示autocommit自动提交
+
+        ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
+
+        //封装对象
+        Article article = new Article();
+        article.setStatus(status);
+        article.setTitle(title);
+        article.setFlag(flag);
+//        List<Article> articleList  = articleMapper.selectArticleByCondition(article);
+//        System.out.println(articleList);
+        int num  = articleMapper.add(article);
+//        sqlSession.commit(); //提交事务
+        System.out.println(num);
+        var id= article.getId();
+        System.out.println(id);
+        //释放资源
+        sqlSession.close();
+    }
+
+    @Test
+    public void testUpdate() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //获取sqlSession对象，用于执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true); //true表示autocommit自动提交
+
+        ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
+
+        //封装对象
+        Article article = new Article();
+        article.setStatus(status);
+        article.setTitle(title);
+        article.setFlag(flag);
+        article.setId(id);
+//        List<Article> articleList  = articleMapper.selectArticleByCondition(article);
+//        System.out.println(articleList);
+        int num  = articleMapper.update(article);
+//        sqlSession.commit(); //提交事务
+        System.out.println(num);
+        //释放资源
+        sqlSession.close();
+    }
+
+    @Test
+    public void testDynamicUpdate() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //获取sqlSession对象，用于执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true); //true表示autocommit自动提交
+
+        ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
+
+        //封装对象
+        Article article = new Article();
+//        article.setStatus(status);
+        article.setTitle(title);
+//        article.setFlag(flag);
+        article.setId(id);
+//        List<Article> articleList  = articleMapper.selectArticleByCondition(article);
+//        System.out.println(articleList);
+        int num  = articleMapper.updateDynamic(article);
+//        sqlSession.commit(); //提交事务
+        System.out.println(num);
+        //释放资源
+        sqlSession.close();
+    }
+
+
+    @Test
+    public void testDelete() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //获取sqlSession对象，用于执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true); //true表示autocommit自动提交
+
+        ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
+
+        //封装对象
+        Article article = new Article();
+//        article.setStatus(status);
+//        article.setTitle(title);
+//        article.setFlag(flag);
+        article.setId(id);
+//        List<Article> articleList  = articleMapper.selectArticleByCondition(article);
+//        System.out.println(articleList);
+            articleMapper.Delete(id);
+//        sqlSession.commit(); //提交事务
+//        System.out.println(num);
+        //释放资源
+        sqlSession.close();
+    }
+
+
+    @Test
+    public void testDeleteIds() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //获取sqlSession对象，用于执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true); //true表示autocommit自动提交
+
+        ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
+
+        //封装对象
+        Article article = new Article();
+//        article.setStatus(status);
+//        article.setTitle(title);
+//        article.setFlag(flag);
+        article.setId(id);
+//        List<Article> articleList  = articleMapper.selectArticleByCondition(article);
+//        System.out.println(articleList);
+        articleMapper.Deletes(ids);
+//        sqlSession.commit(); //提交事务
+//        System.out.println(num);
+        //释放资源
+        sqlSession.close();
+    }
+
+    @Test
+    public void updates() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        //获取sqlSession对象，用于执行sql
+        SqlSession sqlSession = sqlSessionFactory.openSession(true); //true表示autocommit自动提交
+
+        ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
+
+        //封装对象
+//        Article article = new Article();
+//        article.setStatus(status);
+//        article.setTitle(title);
+//        article.setFlag(flag);
+//        article.setId(id);
+//        List<Article> articleList  = articleMapper.selectArticleByCondition(article);
+//        System.out.println(articleList);
+        int num  = articleMapper.updates(status,flag,id);
+//        sqlSession.commit(); //提交事务
+        System.out.println(num);
+        //释放资源
+        sqlSession.close();
+    }
 }
 
