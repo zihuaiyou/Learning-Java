@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    1.配置bean-->
+    <!--    6.property 代表bean的属性 name表示配置什么属性 ref表示参照哪个bean-->
+    <!--  bean的name属性表示bean的别名  -->
+    <!--  bean的scope属性表示bean对象创建方式
+    singleton（默认）为单例模式  只有一个bean对象
+    prototype为非单例模式 一般实体类（存储状态的对象）才使用这个模式-->
+    <bean id="bookDao" name="dao" class="com.zihyou.Dao.Impl.BookDaoImpl" scope="prototype"/>
+    <bean id="bookService" class="com.zihyou.service.impl.BookServiceImpl">
+            <property name="bookDao" ref="bookDao"/>
+    </bean>
+</beans>
