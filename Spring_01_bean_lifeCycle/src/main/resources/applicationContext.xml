@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--1.通过配置的方法实现生命周期-->
+    <bean id="bookDao" name="dao" class="com.zihyou.Dao.Impl.BookDaoImpl" init-method="init" destroy-method="destroy"/>
+    <!--2.通过接口的方法实现生命周期-->
+    <bean id="bookService" class="com.zihyou.service.impl.BookServiceImpl">
+        <property name="bookDao" ref="bookDao" />
+    </bean>
+</beans>
