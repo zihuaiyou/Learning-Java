@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--1.构造方法实例化bean-->
+    <!--    <bean id="bookDao" name="dao" class="com.zihyou.Dao.Impl.BookDaoImpl"/>-->
+
+    <!--2.静态工厂实例化bean-->
+    <!--<bean id="orderDao" class="com.zihyou.factory.OrderDaoFactory" factory-method="getOrderDao" />-->
+    <!--</beans>-->
+
+    <!--3.实例工厂实例化bean-->
+    <!--    <bean id="userDaoFactory" class="com.zihyou.factory.UserDaoFactory"/>-->
+    <!--    <bean id="userDao" factory-bean="userDaoFactory" factory-method="getUserDao"/>-->
+
+    <!--4.FactoryBean-->
+    <bean id="userDao" class="com.zihyou.factory.UserDaoFactoryBean"/>
+</beans>
